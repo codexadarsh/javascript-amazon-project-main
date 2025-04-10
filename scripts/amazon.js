@@ -1,14 +1,14 @@
 async function api() {
-  const response = await fetch("https://fakestoreapi.com/products");
-  const products = await response.json();
+    const response = await fetch("https://fakestoreapi.com/products");
+    const products = await response.json();
 
-  const grid = document.querySelector(".products-grid");
+    const grid = document.querySelector(".products-grid");
 
-  products.map((product) => {
-    const card = document.createElement("div");
-    card.classList.add("card");
+    products.map((product) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
 
-    card.innerHTML = `
+        card.innerHTML = `
           <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
@@ -29,7 +29,7 @@ async function api() {
           </div>
 
           <div class="product-price">
-            S${product.price}
+            ${product.price}
           </div>
 
           <div class="product-quantity-container">
@@ -60,39 +60,40 @@ async function api() {
           </button>
         </div>
           `;
-    grid.appendChild(card);
-  });
-  document.querySelectorAll(".js-add-to-product").forEach((button) => {
-    button.addEventListener("click", () => {
-      const productId = button.dataset.productId;
-      const cart = [];
-      let matchitem;
-
-      cart.forEach((item) => {
-        if (productId === item.productId) {
-          matchitem = item;
-        }
-      });
-
-      if (matchitem) {
-        matchitem.quantity += 1;
-      } else {
-        cart.push({
-          productId: productId,
-          quantity: 1
-        });
-      }
-
-      let cartQuantity = 0;
-      cart.forEach((item) => {
-        cartQuantity += item.quantity
-      })
-
-      document.querySelector(".js-cart-quantity").textContent = cartQuantity;
-      console.log(cartQuantity);
-      console.log(cart);
-
+        grid.appendChild(card);
     });
-  });
+    document.querySelectorAll(".js-add-to-product").forEach((button) => {
+        button.addEventListener("click", () => {
+            const productId = button.dataset.productId;
+
+            let matchitem;
+
+            cart.forEach((item) => {
+                if (productId === item.productId) {
+                    matchitem = item;
+                }
+            });
+
+            if (matchitem) {
+                matchitem.quantity += 1;
+            } else {
+                cart.push({
+                    productId: productId,
+                    quantity: 1
+                });
+            }
+
+            let cartQuantity = 0;
+            cart.forEach((item) => { 
+                cartQuantity += item.quantity
+             })
+
+            document.querySelector(".js-cart-quantity").textContent = cartQuantity;
+            console.log(cartQuantity);
+             
+            console.log(cart);
+
+        });
+    });
 }
 api()
